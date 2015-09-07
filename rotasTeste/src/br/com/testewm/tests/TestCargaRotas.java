@@ -204,11 +204,34 @@ public class TestCargaRotas {
 		Assert.assertEquals(melhorRota.getValorTotalCombustivel().doubleValue(), ONE.intValue(), 0);
 	}
 	
+	@Test
+	public void jsonInsereRotasPadrao() {
+		Client c = ClientBuilder.newClient();
+        
+        Configuration newConfiguration = c.getConfiguration();
+        WebTarget webTarget = c.target(AMBIENTE+"/rotasTeste/consultas/buscaRota/inserirPadrao");
+
+        Response response = webTarget
+                .queryParam("pontoA", "A")
+                .queryParam("pontoB", "E")
+                .queryParam("autonomia", new Double(1))
+                .queryParam("valorDoLitro", new Double(2))
+                .request()
+                .post(
+                    Entity.entity("pontoA", MediaType.TEXT_PLAIN_TYPE).entity("pontoB", MediaType.TEXT_PLAIN_TYPE)
+                        .entity("autonomia", MediaType.TEXT_PLAIN_TYPE).entity("valorDoLitro", MediaType.TEXT_PLAIN_TYPE));
+        
+        Assert.assertTrue("Response Status", response.getStatus() == 200);
+
+        String myBeanXml = response.readEntity(String.class);
+        LOGGER.debug(myBeanXml);
+	}
+	
 	/**
 	 * Necessário servidor inicializado e servico disponivel, verificar constante AMBIENTE
 	 */
 	@Test
-	public void fazRequisicaoJSON() {
+	public void jsonBuscarRota() {
         Client c = ClientBuilder.newClient();
         
         Configuration newConfiguration = c.getConfiguration();
@@ -228,6 +251,88 @@ public class TestCargaRotas {
 
         String myBeanXml = response.readEntity(String.class);
         LOGGER.debug(myBeanXml);
+        
+    }
+	
+	/**
+	 * Necessário servidor inicializado e servico disponivel, verificar constante AMBIENTE
+	 */
+	@Test
+	public void jsonInsereRotaZD() {
+        Client c = ClientBuilder.newClient();
+        
+        Configuration newConfiguration = c.getConfiguration();
+        WebTarget webTarget = c.target(AMBIENTE+"/rotasTeste/consultas/buscaRota/inserir");
+
+        Response response = webTarget
+        		 .queryParam("descricao", "Z=>D")
+                .queryParam("pontoA", "Z")
+                .queryParam("pontoB", "D")
+                .queryParam("distancia", new Double(10))
+                .request()
+                .post(
+                    Entity.entity("pontoA", MediaType.TEXT_PLAIN_TYPE).entity("pontoB", MediaType.TEXT_PLAIN_TYPE)
+                        .entity("autonomia", MediaType.TEXT_PLAIN_TYPE).entity("valorDoLitro", MediaType.TEXT_PLAIN_TYPE));
+        
+        Assert.assertTrue("Response Status", response.getStatus() == 200);
+
+        String myBeanXml = response.readEntity(String.class);
+        LOGGER.debug(myBeanXml);
+        
+    }
+	
+	/**
+	 * Necessário servidor inicializado e servico disponivel, verificar constante AMBIENTE
+	 */
+	@Test
+	public void jsonInsereRotaZX() {
+        Client c = ClientBuilder.newClient();
+        
+        Configuration newConfiguration = c.getConfiguration();
+        WebTarget webTarget = c.target(AMBIENTE+"/rotasTeste/consultas/buscaRota/inserir");
+
+        Response response = webTarget
+        		 .queryParam("descricao", "Z=>X")
+                .queryParam("pontoA", "Z")
+                .queryParam("pontoB", "X")
+                .queryParam("distancia", new Double(10))
+                .request()
+                .post(
+                    Entity.entity("pontoA", MediaType.TEXT_PLAIN_TYPE).entity("pontoB", MediaType.TEXT_PLAIN_TYPE)
+                        .entity("autonomia", MediaType.TEXT_PLAIN_TYPE).entity("valorDoLitro", MediaType.TEXT_PLAIN_TYPE));
+        
+        Assert.assertTrue("Response Status", response.getStatus() == 200);
+
+        String myBeanXml = response.readEntity(String.class);
+        LOGGER.debug(myBeanXml);
+        
+    }
+	
+	/**
+	 * Necessário servidor inicializado e servico disponivel, verificar constante AMBIENTE
+	 */
+	@Test
+	public void jsonLimparRotas() {
+        Client c = ClientBuilder.newClient();
+        
+        Configuration newConfiguration = c.getConfiguration();
+        WebTarget webTarget = c.target(AMBIENTE+"/rotasTeste/consultas/buscaRota/limpar");
+
+        Response response = webTarget
+       		 .queryParam("descricao", "Z=>X")
+               .queryParam("pontoA", "Z")
+               .queryParam("pontoB", "X")
+               .queryParam("distancia", new Double(10))
+               .request()
+               .post(
+                   Entity.entity("pontoA", MediaType.TEXT_PLAIN_TYPE).entity("pontoB", MediaType.TEXT_PLAIN_TYPE)
+                       .entity("autonomia", MediaType.TEXT_PLAIN_TYPE).entity("valorDoLitro", MediaType.TEXT_PLAIN_TYPE));
+       
+       Assert.assertTrue("Response Status", response.getStatus() == 200);
+
+       String myBeanXml = response.readEntity(String.class);
+       LOGGER.debug(myBeanXml);
+        
         
     }
 	

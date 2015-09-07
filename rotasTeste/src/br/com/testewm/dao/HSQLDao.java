@@ -50,6 +50,7 @@ public class HSQLDao {
 			
 		}
 	}
+	
 
 	/**
 	 * 
@@ -61,8 +62,7 @@ public class HSQLDao {
 		PreparedStatement stmt = null;
 		
 		try {
-			criarTabela();
-			insereDados();
+			
 			c = getConnection();
 			stmt = c.prepareStatement("select * from ROTAS");
 			ResultSet rs = stmt.executeQuery();
@@ -93,13 +93,34 @@ public class HSQLDao {
 		return rotas;
 	}
 
-	private void insereDados() {
+	public void insereRotasPadrao() {
 		adicionaRota("A para B", "A", "B", 10);
 		adicionaRota("B para D", "B", "D", 15);
 		adicionaRota("A para C", "A", "C", 20);
 		adicionaRota("C para D", "C", "D", 30);
 		adicionaRota("B para E", "B", "E", 50);
 		adicionaRota("D para E", "D", "E", 30);
+	}
+	
+	public void limparBancoDeDados() {
+		PreparedStatement stmt = null;
+		Connection c = null;
+		try {
+			c = getConnection();
+			stmt = c.prepareStatement("delete from ROTAS");
+			stmt.execute();
+			c.commit();
+		} catch (SQLException e) {
+			LOGGER.error(e.getMessage());
+		}finally{
+			try{
+				stmt.close();
+				c.close();
+			}catch(Exception e){
+				LOGGER.error(e.getMessage());
+			}
+			
+		}
 	}
 
 	public void adicionaRota(String descricao, String pontoInicial, String pontoFinal, double distanciaKm) {
@@ -150,4 +171,64 @@ public class HSQLDao {
 			
 		}
 	}
+
+	public boolean pesquisar(Rota r) {
+		Connection c = null;
+		PreparedStatement stmt = null;
+		
+		try {
+			
+			c = getConnection();
+			stmt = c.prepareStatement("select * from ROTAS where PONTOI = ? and PONTOF = ? ");
+			
+			stmt.setString(1, r.getPontoInicio());
+			stmt.setString(2, r.getPontoFim());
+			
+			ResultSet rs = stmt.executeQuery();
+			
+			return (rs.next());
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally{
+			try{
+				stmt.close();
+				c.close();
+			}catch(Exception e){
+				LOGGER.error(e.getMessage());
+			}
+			
+		}
+
+		return false;
+	}
+
+	public void excluir(Rota r) {
+		Connection c = null;
+		PreparedStatement stmt = null;
+		
+		try {
+			
+			c = getConnection();
+			stmt = c.prepareStatement("delete from ROTAS where PONTOI = ? and PONTOF = ? ");
+			
+			stmt.setString(1, r.getPontoInicio());
+			stmt.setString(2, r.getPontoFim());
+			
+			stmt.execute();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally{
+			try{
+				stmt.close();
+				c.close();
+			}catch(Exception e){
+				LOGGER.error(e.getMessage());
+			}
+			
+		}
+		
+	}
+
 }

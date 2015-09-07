@@ -19,11 +19,12 @@ public class CalculaRotaService {
 	}
 
 	private List<Rota> inicializarRotas() {
+		dao.criarTabela();
 		List<Rota> rotas = dao.listarRotas();
 		return rotas;
 	}
 
-	private List<Rota> adicionaRota(String pontoInicial, String pontoFinal, double distanciaKm, List<Rota> rotas) {
+	public List<Rota> adicionaRota(String pontoInicial, String pontoFinal, double distanciaKm, List<Rota> rotas) {
 		Rota r = new Rota();
 		r.setPontoInicio(pontoInicial);
 		r.setPontoFim(pontoFinal);

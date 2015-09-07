@@ -8,6 +8,7 @@ import org.apache.log4j.Logger;
 
 import br.com.testewm.Rota;
 import br.com.testewm.RotaCalculada;
+import br.com.testewm.dao.HSQLDao;
 
 public class BuscaRotaService extends CalculaRotaService {
 	protected static final Logger LOGGER = Logger.getLogger(BuscaRotaService.class);
@@ -27,12 +28,15 @@ public class BuscaRotaService extends CalculaRotaService {
 
 	/**
 	 * Este método efetua a chamada de busca das rotas
+	 * Utiliza o algoritmo a-*
 	 * 
+	 * http://www.redblobgames.com/pathfinding/a-star/introduction.html
 	 * @param pontoInicio
 	 * @param pontoFim
 	 * @param autonomia
 	 * @param valorDoLitro
-	 * @return
+	 * @return RotaCalculada
+	 * @see br.com.testewm.RotaCalculada
 	 */
 	public RotaCalculada calcularRota(String pontoInicio, String pontoFim, BigDecimal autonomia, BigDecimal valorDoLitro) {
 
@@ -168,5 +172,50 @@ public class BuscaRotaService extends CalculaRotaService {
 			}
 		}
 		return rotaCalculada;
+	}
+
+	public List<Rota> listarRotas() {
+		HSQLDao dao = new HSQLDao();
+		return dao.listarRotas();
+	}
+
+	/**
+	 * 
+	 * @param r
+	 * @return
+	 */
+	public Rota inserir(Rota r) {
+		try{
+			HSQLDao dao = new HSQLDao();
+			
+			/**
+			 * Verifica se já existe esta rota, caso já exista, exclui para que a alteração funcione sempre
+			 */
+			if(dao.pesquisar(r)){
+				dao.excluir(r);
+			}
+			
+			dao.adicionaRota(r);
+			return r;
+		}catch(Exception e){
+			return null;
+		}
+	}
+
+	public void excluirTodos() {
+		HSQLDao dao = new HSQLDao();
+		dao.limparBancoDeDados();
+		
+	}
+
+	public void insereRotasPadrao() {
+		HSQLDao dao = new HSQLDao();
+		dao.insereRotasPadrao();
+		
+	}
+
+	public boolean pesquisar(Rota r) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 }
