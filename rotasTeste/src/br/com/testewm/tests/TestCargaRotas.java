@@ -234,7 +234,6 @@ public class TestCargaRotas {
 	public void jsonBuscarRota() {
         Client c = ClientBuilder.newClient();
         
-        Configuration newConfiguration = c.getConfiguration();
         WebTarget webTarget = c.target(AMBIENTE+"/rotasTeste/consultas/buscaRota/buscar");
 
         Response response = webTarget

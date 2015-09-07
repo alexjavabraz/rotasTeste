@@ -10,17 +10,32 @@ import br.com.testewm.Rota;
 import br.com.testewm.RotaCalculada;
 import br.com.testewm.dao.HSQLDao;
 
-public class BuscaRotaService extends CalculaRotaService {
+/**
+ * Classe que contém as regras de negócio.<br/>
+ * @author asimas
+ *
+ */
+public class BuscaRotaService {
 	protected static final Logger LOGGER = Logger.getLogger(BuscaRotaService.class);
+	public List<Rota> rotas = null;
+	private HSQLDao dao = new HSQLDao();
 
 	public BuscaRotaService() {
 		super();
+		dao.criarTabela();
+		rotas = dao.listarRotas();
 	}
 
 	public BuscaRotaService(List<Rota> rotas) {
-		super(rotas);
+		super();
+		dao.criarTabela();
+		this.rotas = rotas;
 	}
 
+	/**
+	 * Método main para teste
+	 * @param args
+	 */
 	public static void main(String[] args) {
 		BuscaRotaService rf = new BuscaRotaService();
 		rf.calcularRota("A", "E", new BigDecimal(10), new BigDecimal(2.5));
@@ -214,8 +229,18 @@ public class BuscaRotaService extends CalculaRotaService {
 		
 	}
 
-	public boolean pesquisar(Rota r) {
-		// TODO Auto-generated method stub
-		return false;
+	private List<Rota> inicializarRotas() {
+		dao.criarTabela();
+		List<Rota> rotas = dao.listarRotas();
+		return rotas;
+	}
+
+	public List<Rota> adicionaRota(String pontoInicial, String pontoFinal, double distanciaKm, List<Rota> rotas) {
+		Rota r = new Rota();
+		r.setPontoInicio(pontoInicial);
+		r.setPontoFim(pontoFinal);
+		r.setDistancia(distanciaKm);
+		rotas.add(r);
+		return rotas;
 	}
 }

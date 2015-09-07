@@ -40,7 +40,7 @@ Com os seguintes parâmetros:<br/>
 
 
 Para consultar as rotas cadastrar na base de dados utilize a URL:<br/>
-<i><a href='../rotasTeste/consultas/buscaRota/listar' target='_blank'>http://localhost:8080/rotasTeste/consultas/buscaRota/buscar via POST</a></i><br/><br/>
+<i><a href='../rotasTeste/consultas/buscaRota/listar' target='_blank'>http://localhost:8080/rotasTeste/consultas/buscaRota/listar</a></i><br/><br/>
 
 Para excluir todas as rotas utilize a URL:<br/>
 <i><a href='../rotasTeste/consultas/buscaRota/limpar' target='_blank'>http://localhost:8080/rotasTeste/consultas/buscaRota/limpar</a></i><br/><br/>

@@ -1,5 +1,11 @@
 package br.com.testewm;
 
+/**
+ * Representa uma Rota - Linha de um ponto A para um ponto B, com a sua descrição e distância.<br/>
+ * É um POJO.<br/>		
+ * @author asimas
+ *
+ */
 public class Rota {
 
 	private String pontoInicio;

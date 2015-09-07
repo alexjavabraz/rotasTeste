@@ -5,6 +5,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
 
+/**
+ * Esta classe contém o processamento da Rota - Linha.<br/>
+ * Contém poucos campos calculados, mas também é um POJO.<br/>
+ * @author asimas
+ *
+ */
 public class RotaCalculada {
 	private BigDecimal distanciaTotal = BigDecimal.ZERO;
 	private BigDecimal distancia = BigDecimal.ZERO;

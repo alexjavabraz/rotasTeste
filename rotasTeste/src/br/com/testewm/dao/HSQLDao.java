@@ -14,9 +14,12 @@ import br.com.testewm.Rota;
 
 public class HSQLDao {
 	protected static final Logger LOGGER = Logger.getLogger(HSQLDao.class);
+	
+	
 
 	/**
-	 *
+	 * Retorna uma conexão com o banco de dados.<br/>
+	 * @return
 	 */
 	public Connection getConnection() {
 		try {
@@ -29,6 +32,9 @@ public class HSQLDao {
 		return null;
 	}
 
+	/**
+	 * Cria a tabela na qual serão armazenadas as rotas no banco de dados. <br/>
+	 */
 	public void criarTabela() {
 		Connection c = null;
 		PreparedStatement stmt = null;
@@ -53,7 +59,7 @@ public class HSQLDao {
 	
 
 	/**
-	 * 
+	 * Lista as rotas gravadas no banco de dados.<br/>
 	 * @return
 	 */
 	public List<Rota> listarRotas() {
@@ -93,6 +99,9 @@ public class HSQLDao {
 		return rotas;
 	}
 
+	/**
+	 * Insere as rotas padrão
+	 */
 	public void insereRotasPadrao() {
 		adicionaRota("A para B", "A", "B", 10);
 		adicionaRota("B para D", "B", "D", 15);
@@ -102,6 +111,9 @@ public class HSQLDao {
 		adicionaRota("D para E", "D", "E", 30);
 	}
 	
+	/**
+	 * Limpa todos os itens da tabela
+	 */
 	public void limparBancoDeDados() {
 		PreparedStatement stmt = null;
 		Connection c = null;
@@ -172,6 +184,11 @@ public class HSQLDao {
 		}
 	}
 
+	/**
+	 * Pesquisa na tabela de rotas se o objeto existe (existe= (PONTOA == PONTOATESTE && PONTOB == PONTOBTESTE) )
+	 * @param r
+	 * @return
+	 */
 	public boolean pesquisar(Rota r) {
 		Connection c = null;
 		PreparedStatement stmt = null;
@@ -203,6 +220,11 @@ public class HSQLDao {
 		return false;
 	}
 
+	/**
+	 * Exclui uma rota especifica
+	 * @param r
+	 * @see br.com.testewm.Rota
+	 */
 	public void excluir(Rota r) {
 		Connection c = null;
 		PreparedStatement stmt = null;
