@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+	<appender name="ROTA_FILE" class="org.apache.log4j.FileAppender">
+		<param name="File" value="C:\\temp\\LOG_ROTAS.log" />
+		<param name="Append" value="true" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d %-5p [%c] (%t) %m%n" />
+		</layout>
+	</appender>
+	<appender name="CONSOLE_APPENDER" class="org.apache.log4j.ConsoleAppender">
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d %-5p [%c] (%t) %m%n" />
+		</layout>
+	</appender>
+	<appender name="ROTA" class="org.apache.log4j.AsyncAppender">
+		<appender-ref ref="CONSOLE_APPENDER" />
+	</appender>
+	<category name="org.hibernate">
+		<priority value="OFF" />
+	</category>
+	<category name="org.jboss.logging">
+		<priority value="OFF" />
+	</category>
+	<root>
+		<level value="DEBUG" />
+		<appender-ref ref="ROTA" />
+	</root>
+</log4j:configuration>
